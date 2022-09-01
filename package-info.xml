@@ -10,11 +10,11 @@
 		<readme parsebbc="true">readme/english.txt</readme>
 		<require-dir name="Sources" destination="$boarddir"/>
 		<require-dir name="Themes" destination="$boarddir"/>
-		<hook hook="integrate_pre_load" function="rafa\NotifyOnMembersActions::hooks#" file="$sourcedir/NotifyOnMembersActions.php"/>
+		<hook hook="integrate_pre_load" function="reslava\NotifyOnMembersActions::hooks#" file="$sourcedir/NotifyOnMembersActions.php"/>
 		<redirect url="?action=admin;area=modsettings;sa=notify_on_members_actions" timeout="3000"/>
 	</install>
 	<uninstall for="2.1.*">
-		<hook hook="integrate_pre_load" function="rafa\NotifyOnMembersActions::hooks#" file="$sourcedir/NotifyOnMembersActions.php" reverse="true"/>		
+		<hook hook="integrate_pre_load" function="reslava\NotifyOnMembersActions::hooks#" file="$sourcedir/NotifyOnMembersActions.php" reverse="true"/>		
 		<remove-file name="$sourcedir/NotifyOnMembersActions.php"/>
 		<remove-file name="$languagedir/NotifyOnMembersActions.english.php"/>
 	</uninstall>
