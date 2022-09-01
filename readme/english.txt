@@ -1,11 +1,20 @@
-[center][color=red][size=16pt][b]Notify On Members Actions[/b][/size][/color]
-[color=blue][b][size=10pt]By rafa[/size][/b][/color]
-[color=green]Notify On Members Login, new Post[/color][/center]
+[img]https://img.shields.io/badge/Hooks%20Only-Yes-orange[/img] 
+[img]https://img.shields.io/badge/SMF-2.1-orange[/img] 
+[url=https://github.com/reslava/Notify-on-members-actions][img]https://img.shields.io/badge/Git-v0.21-orange[/img][/url]
+[url=https://www.buymeacoffee.com/reslava][img]https://img.shields.io/badge/Buy%20me%20a%20coffee-%24-orange[/img][/url]
 
-[b]Features:[/b]
+[size=5]Notify on members actions[/size]
+Developed by: [color=black][b]reslava[/b][/color]
+[color=green]Notify by email when selected members Login and/or write a new post[/color][/center]
+
+[b][color=navy]Features:[/color][/b]
 [list]
-[li]Notify by email on member Login[/li]
-[li]Notify by email on member new Post[/li]
+[li]Notify by email on selected member login[/li]
+[li]Notify by email on selected member write a new post[/li]
 [/list]
+
+[b][color=navy]Localization:[/color][/b]
+[img]https://www.simplemachines.org/site_images/lang/english.gif[/img] English
+[img]https://www.simplemachines.org/site_images/lang/spanish.gif[/img] Spanish
 
 [hr][b]It is released under The MIT License.[/b]

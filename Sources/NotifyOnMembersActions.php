@@ -5,14 +5,14 @@
  *
  * @package Notify On Members Actions
  * @link
- * @author rafa <reslava@gmail.com>
- * @copyright 2022 rafa
+ * @author reslava <reslava@gmail.com>
+ * @copyright 2022 reslava
  * @license https://opensource.org/licenses/MIT The MIT License
  *
- * @version 0.1
+ * @version 0.21
  */
  
-namespace rafa;
+namespace reslava;
 
 if (!defined('SMF'))
 	die('Hacking attempt...');
@@ -38,25 +38,27 @@ final class NotifyOnMembersActions
 	 */
 	public function afterCreatePost($msgOptions, $topicOptions, $posterOptions, $message_columns, $message_parameters)	
 	{
-		global $context, $modSettings;									
+		global $context, $modSettings, $txt;									
 		
 		if(!$modSettings['notify_ma_on_new_post'])
 			return;			
+		
+		loadLanguage('NotifyOnMembersActions');
 		
 		//$login_alert_array = explode(',', $modSettings['notify_ma_id_member']); 		
 		//if(in_array($posterOptions['id'], $login_alert_array)) {
 		if($posterOptions['name'] == $modSettings['notify_ma_member_name']) {
 			$email_from = $modSettings['notify_ma_email_from']; 			
-			$email_to = $modSettings['notify_ma_email_from']; 			
-			$subject = "FORUM ALERTS: user " . $posterOptions['name'] . " has written a new post!"; 
+			$email_to = $modSettings['notify_ma_email_from']; 						
 			
 			$headers = 'MIME-Version: 1.0' . "\r\n";
 			$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-			$headers .= 'From: forum alerts <' . $email_from . '>';
+			$headers .= 'From: ' . $email_from;			
 			
-			$body = "<strong>FORUM " . $context['forum_name_html_safe'] . " ALERT</strong>: user <strong>" . $posterOptions['name'] . "</strong> has written a new post!<br>"
-			."<strong>subject</strong>: " . $msgOptions['subject'] . "<br>" 
-			."<strong>body</strong>:<br> " . $msgOptions['body'] . "<br>"; 			
+			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": user " . $posterOptions['name'] . " has written a new post!"; 
+			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $posterOptions['name'] . "</strong> " . $txt['notify_ma_written_new_post'] . "<br>"
+			."<strong>" . $txt['notify_ma_subject'] . "</strong>: " . $msgOptions['subject'] . "<br>" 
+			."<strong>" . $txt['notify_ma_body'] . "</strong>:<br> " . $msgOptions['body'] . "<br>"; 			
 			
 			$send = mail($email_to, $subject, $body, $headers);		
 		}	
@@ -67,23 +69,26 @@ final class NotifyOnMembersActions
 	 */
 	public function login($member_name, $pwd, $cookieTime)
 	{
-		global $context, $modSettings, $user_settings;									
+		global $context, $modSettings, $user_settings, $txt;									
 		
 		if(!$modSettings['notify_ma_on_login'])
 			return;	
+		
+		loadLanguage('NotifyOnMembersActions');
 		
 		//$login_alert_array = explode(',', $modSettings['notify_ma_id_member']); 		
 		//if(in_array($user_settings['id_member'], $login_alert_array)) {
 		if($user_settings['member_name'] == $modSettings['notify_ma_member_name']) {
 			$email_from = $modSettings['notify_ma_email_from']; 			
-			$email_to = $modSettings['notify_ma_email_from']; 			
-			$subject = "FORUM ALERTS: user " . $member_name . " has logged in!"; 
+			$email_to = $modSettings['notify_ma_email_from']; 						
 			
 			$headers = 'MIME-Version: 1.0' . "\r\n";
 			$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-			$headers .= 'From: forum alerts <' . $email_from . '>';
+			$headers .= 'From: ' . $email_from;	
 			
-			$body = "<strong>FORUM " . $context['forum_name_html_safe'] . " ALERT</strong>: user <strong>" . $member_name . "</strong> has logged in!";
+			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": user " . $member_name . " has logged in!"; 
+			
+			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $member_name . "</strong> " . $txt['notify_ma_logged_in'];
 			
 			$send = mail($email_to, $subject, $body, $headers);		
 		}	
@@ -96,7 +101,7 @@ final class NotifyOnMembersActions
 	{
 		global $context;
 
-		$context['copyrights']['mods'][] = 'Notify On Members Actions by rafa &copy; 2022';
+		$context['copyrights']['mods'][] = 'Notify On Members Actions by reslava &copy; 2022';
 	}
 
 	/**
@@ -146,24 +151,26 @@ final class NotifyOnMembersActions
 			updateSettings($addSettings);
 
 		//$context['html_headers'] .= "<script type='text/javascript' src='Themes/default/scripts/suggest.js?fin20'></script>";
-		loadJavaScriptFile('suggest.js', array('defer' => false, 'minimize' => true), 'smf_suggest');				
+		loadJavaScriptFile('suggest.js', array('defer' => false, 'minimize' => true), 'smf_suggest');
+        				
 		$config_vars = array(			
-   		    //array('text', 'notify_ma_id_member'),
-			array('text', 'notify_ma_member_name', 'postinput' => '<script>
-			                    var oAddMemberSuggest = new smc_AutoSuggest({
-								sSelf: \'oAddMemberSuggest\',
-								sSessionId: \'' . $context['session_id'] . '\',
-								sSessionVar: \'' . $context['session_var'] . '\',
-								sControlId: \'notify_ma_member_name\',
-								sSearchType: \'member\',
-								bItemList: false
-							});
-							</script>'),			
-			array('email', 'notify_ma_email_to'),
-			array('email', 'notify_ma_email_from'),
-			array('check', 'notify_ma_on_login'),
-			array('check', 'notify_ma_on_new_post'),			
-		);					
+            //array('text', 'notify_ma_id_member'),
+         array('text', 'notify_ma_member_name', 'postinput' => '<script>
+                             var oAddMemberSuggest = new smc_AutoSuggest({
+                             sSelf: \'oAddMemberSuggest\',
+                             sSessionId: \'' . $context['session_id'] . '\',
+                             sSessionVar: \'' . $context['session_var'] . '\',
+                             sControlId: \'notify_ma_member_name\',
+                             sSearchType: \'member\',
+                             bItemList: false
+                         });
+                         </script>',
+                         'help' => $txt['notify_ma_member_name_h']),	
+         array('email', 'notify_ma_email_to', 'help' => $txt['notify_ma_email_to_h']),
+         array('email', 'notify_ma_email_from', 'help' => $txt['notify_ma_email_from_h']),
+         array('check', 'notify_ma_on_login', 'help' => $txt['notify_ma_on_login_h']),
+         array('check', 'notify_ma_on_new_post', 'help' => $txt['notify_ma_on_new_post_h']),			
+        );						
 	
 		$context[$context['admin_menu_name']]['tab_data']['description'] = $txt['notify_ma_description'];
 
