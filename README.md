@@ -15,6 +15,8 @@ Configure the parameters by:
     Admin > Configuration > Modifications settings > Notify on members action
 
 
-Localization:
-- English
-- Spanish
+Localizations:
+* ![](https://www.simplemachines.org/site_images/lang/english.gif) English
+* ![](https://www.simplemachines.org/site_images/lang/spanish.gif) Spanish
+
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-%24-green)](https://www.buymeacoffee.com/reslava)
