@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Hooks%20Only-Yes-orange) ![](https://img.shields.io/badge/SMF-2.1-orange)
+![](https://img.shields.io/badge/SMF-2.1-orange) ![](https://img.shields.io/badge/Hooks%20Only-Yes-orange) 
 
 # Notify-on-members-actions
 SMF Mod: **Notify on members actions** [download from SMF](https://custom.simplemachines.org/index.php?mod=4341/) 
