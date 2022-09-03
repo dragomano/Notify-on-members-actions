@@ -9,7 +9,7 @@
  * @copyright 2022 reslava
  * @license https://opensource.org/licenses/MIT The MIT License
  *
- * @version 0.21
+ * @version 0.2.2
  */
  
 namespace reslava;
@@ -49,18 +49,19 @@ final class NotifyOnMembersActions
 		//if(in_array($posterOptions['id'], $login_alert_array)) {
 		if($posterOptions['name'] == $modSettings['notify_ma_member_name']) {
 			$email_from = $modSettings['notify_ma_email_from']; 			
-			$email_to = $modSettings['notify_ma_email_from']; 						
+			$email_to = $modSettings['notify_ma_email_to']; 						
 			
-			$headers = 'MIME-Version: 1.0' . "\r\n";
-			$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-			$headers .= 'From: ' . $email_from;			
+			//$headers = 'MIME-Version: 1.0' . "\r\n";
+			//$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+			//$headers .= 'From: ' . $email_from;			
 			
-			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": user " . $posterOptions['name'] . " has written a new post!"; 
+			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $posterOptions['name'] . " " . $txt['notify_ma_written_new_post']; 
 			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $posterOptions['name'] . "</strong> " . $txt['notify_ma_written_new_post'] . "<br>"
 			."<strong>" . $txt['notify_ma_subject'] . "</strong>: " . $msgOptions['subject'] . "<br>" 
 			."<strong>" . $txt['notify_ma_body'] . "</strong>:<br> " . $msgOptions['body'] . "<br>"; 			
 			
-			$send = mail($email_to, $subject, $body, $headers);		
+			//$send = mail($email_to, $subject, $body, $headers);		
+            sendmail ($email_to, $subject, $body, $email_from, $send_html = true, $priority = 4);
 		}	
 	}
 
@@ -80,17 +81,18 @@ final class NotifyOnMembersActions
 		//if(in_array($user_settings['id_member'], $login_alert_array)) {
 		if($user_settings['member_name'] == $modSettings['notify_ma_member_name']) {
 			$email_from = $modSettings['notify_ma_email_from']; 			
-			$email_to = $modSettings['notify_ma_email_from']; 						
+			$email_to = $modSettings['notify_ma_email_to']; 						
 			
-			$headers = 'MIME-Version: 1.0' . "\r\n";
-			$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-			$headers .= 'From: ' . $email_from;	
+			//$headers = 'MIME-Version: 1.0' . "\r\n";
+			//$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+			//$headers .= 'From: ' . $email_from;	
 			
-			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": user " . $member_name . " has logged in!"; 
+			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $member_name . " " . $txt['notify_ma_logged_in']; 
 			
 			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $member_name . "</strong> " . $txt['notify_ma_logged_in'];
 			
-			$send = mail($email_to, $subject, $body, $headers);		
+			//$send = mail($email_to, $subject, $body, $headers);		
+            sendmail ($email_to, $subject, $body, $email_from, $send_html = true, $priority = 4);
 		}	
 	}
 

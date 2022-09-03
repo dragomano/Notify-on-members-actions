@@ -7,10 +7,10 @@ if (!defined('SMF'))
  * @package Notify On Members Actions
 */
 
-$txt['notify_ma_title'] = 'Notify On Members Actions';
+$txt['notify_ma_title'] = 'Notificarme de las acciones de los usuarios';
 $txt['notify_ma_description'] = 'Notificarme enivandome un email cuando el usuario haga login y/o escriba un nuevo mensaje';
 $txt['notify_ma_member_name'] = 'Nombre del usuario';
-$txt['notify_ma_on_login'] = 'login';
+$txt['notify_ma_on_login'] = 'Login';
 $txt['notify_ma_on_new_post'] = 'Nuevo mensaje';
 $txt['notify_ma_email_to'] = 'eMail para';
 $txt['notify_ma_email_from'] = 'eMail de';
