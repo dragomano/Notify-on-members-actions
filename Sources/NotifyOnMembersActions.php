@@ -38,12 +38,10 @@ final class NotifyOnMembersActions
 	 */
 	public function login($member_name, $pwd, $cookieTime)
 	{
-		global $context, $modSettings, $user_settings, $txt;					
-        
-        require_once($sourcedir . '/Subs-Post.php');
+		global $context, $modSettings, $user_settings, $txt;					                
 		
 		if(!$modSettings['notify_ma_on_login'])
-			return;	
+			return;	       
 		
 		loadLanguage('NotifyOnMembersActions');
 		
@@ -62,6 +60,7 @@ final class NotifyOnMembersActions
 			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $member_name . "</strong> " . $txt['notify_ma_logged_in'];
 			
 			//$send = mail($email_to, $subject, $body, $headers);		
+            require_once($sourcedir . '/Subs-Post.php');
             sendmail ($email_to, $subject, $body, $email_from, $send_html = true, $priority = 4);
 		}	
 	}
@@ -74,7 +73,7 @@ final class NotifyOnMembersActions
 		global $context, $modSettings, $txt;									        
 		
 		if(!$modSettings['notify_ma_on_new_post'])
-			return;			
+			return;			        
 		
 		loadLanguage('NotifyOnMembersActions');
 		
@@ -94,6 +93,7 @@ final class NotifyOnMembersActions
 			."<strong>" . $txt['notify_ma_body'] . "</strong>:<br> " . $msgOptions['body'] . "<br>"; 			
 			
 			//$send = mail($email_to, $subject, $body, $headers);		
+            require_once($sourcedir . '/Subs-Post.php');
             sendmail ($email_to, $subject, $body, $email_from, $send_html = true, $priority = 4);
 		}	
 	}
