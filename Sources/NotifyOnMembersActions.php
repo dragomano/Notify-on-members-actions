@@ -38,7 +38,7 @@ final class NotifyOnMembersActions
 	 */
 	public function login($member_name, $pwd, $cookieTime)
 	{
-		global $context, $modSettings, $user_settings, $txt;					                
+		global $context, $modSettings, $user_settings, $txt, $sourcedir;					                
 		
 		if(!$modSettings['notify_ma_on_login'])
 			return;	       
@@ -70,7 +70,7 @@ final class NotifyOnMembersActions
 	 */
 	public function afterCreatePost($msgOptions, $topicOptions, $posterOptions, $message_columns, $message_parameters)	
 	{
-		global $context, $modSettings, $txt;									        
+		global $context, $modSettings, $txt, $sourcedir;									        
 		
 		if(!$modSettings['notify_ma_on_new_post'])
 			return;			        
