@@ -21,5 +21,5 @@ Configure the parameters by:
 [img]https://www.simplemachines.org/site_images/lang/spanish.gif[/img] Spanish
 
 [hr]
-[url="https://github.com/reslava/Notify-on-members-actions"][img]https://img.shields.io/badge/Git-v0.2.4-green[/img][/url] [url="https://www.buymeacoffee.com/reslava"][img]https://img.shields.io/badge/Buy%20me%20a%20coffee-%24-green[/img][/url]
+[url="https://github.com/reslava/Notify-on-members-actions"][img]https://img.shields.io/badge/Git-v0.2.5-green[/img][/url] [url="https://www.buymeacoffee.com/reslava"][img]https://img.shields.io/badge/Buy%20me%20a%20coffee-%24-green[/img][/url]
 [b]It is released under The MIT License.[/b]
