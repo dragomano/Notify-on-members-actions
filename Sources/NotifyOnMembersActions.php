@@ -47,7 +47,8 @@ final class NotifyOnMembersActions
 		
 		//$login_alert_array = explode(',', $modSettings['notify_ma_id_member']); 		
 		//if(in_array($user_settings['id_member'], $login_alert_array)) {
-		if($user_settings['member_name'] == $modSettings['notify_ma_member_name']) {
+		//if($user_settings['member_name'] == $modSettings['notify_ma_member_name']) {
+        if($user_settings['real_name'] == $modSettings['notify_ma_member_name']) {
 			$email_from = $modSettings['notify_ma_email_from']; 			
 			$email_to = $modSettings['notify_ma_email_to']; 						
 			
@@ -55,7 +56,8 @@ final class NotifyOnMembersActions
 			//$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 			//$headers .= 'From: ' . $email_from;	
 			
-			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $member_name . " " . $txt['notify_ma_logged_in']; 
+			//$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $member_name . " " . $txt['notify_ma_logged_in']; 
+            $subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $user_settings['real_name'] . " " . $txt['notify_ma_logged_in']; 
 			
 			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $member_name . "</strong> " . $txt['notify_ma_logged_in'];
 			
@@ -70,7 +72,7 @@ final class NotifyOnMembersActions
 	 */
 	public function afterCreatePost($msgOptions, $topicOptions, $posterOptions, $message_columns, $message_parameters)	
 	{
-		global $context, $modSettings, $txt, $sourcedir, $scripturl;									        
+		global $context, $modSettings, $txt, $sourcedir, $scripturl, $user_settings;									        
 		
 		if(!$modSettings['notify_ma_on_new_post'])
 			return;			        
@@ -79,7 +81,9 @@ final class NotifyOnMembersActions
 		
 		//$login_alert_array = explode(',', $modSettings['notify_ma_id_member']); 		
 		//if(in_array($posterOptions['id'], $login_alert_array)) {
-		if($posterOptions['name'] == $modSettings['notify_ma_member_name']) {
+		//if($posterOptions['name'] == $modSettings['notify_ma_member_name']) {
+        //if($context['user']['name'] == $modSettings['notify_ma_member_name']) {
+        if($user_settings['real_name'] == $modSettings['notify_ma_member_name']) {
 			$email_from = $modSettings['notify_ma_email_from']; 			
 			$email_to = $modSettings['notify_ma_email_to']; 						
 			
@@ -88,7 +92,8 @@ final class NotifyOnMembersActions
 			//$headers .= 'From: ' . $email_from;			
 			
 			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $posterOptions['name'] . " " . $txt['notify_ma_written_new_post']; 
-			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $posterOptions['name'] . "</strong> " . $txt['notify_ma_written_new_post'] . "<br>"
+			//$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $posterOptions['name'] . "</strong> " . $txt['notify_ma_written_new_post'] . "<br>"
+            $body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $user_settings['real_name'] . "</strong> " . $txt['notify_ma_written_new_post'] . "<br>"
 			. "<a href='" . $scripturl . "?msg=" . $msgOptions['id'] . "#" . $msgOptions['id'] . "'><strong>" . $msgOptions['subject'] . "</strong></a><br>" 
 			. $msgOptions['body'] . "<br>"; 				
 			
