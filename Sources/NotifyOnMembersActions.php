@@ -38,30 +38,24 @@ final class NotifyOnMembersActions
 	 */
 	public function login($member_name, $pwd, $cookieTime)
 	{
-		global $context, $modSettings, $user_settings, $txt, $sourcedir;					                
+		global $context, $modSettings, $user_settings, $txt, $sourcedir, $memberContext;					                
 		
 		if(!$modSettings['notify_ma_on_login'])
 			return;	       
 		
 		loadLanguage('NotifyOnMembersActions');
+        require_once($sourcedir . '/Load.php');
+		$mID = loadMemberData($member_name, $is_name = true);		
+		loadMemberContext($mID[0]);
 		
-		//$login_alert_array = explode(',', $modSettings['notify_ma_id_member']); 		
-		//if(in_array($user_settings['id_member'], $login_alert_array)) {
-		//if($user_settings['member_name'] == $modSettings['notify_ma_member_name']) {
-        if($user_settings['real_name'] == $modSettings['notify_ma_member_name']) {
+        if($memberContext[1]['name'] == $modSettings['notify_ma_member_name']) {
 			$email_from = $modSettings['notify_ma_email_from']; 			
-			$email_to = $modSettings['notify_ma_email_to']; 						
+			$email_to = $modSettings['notify_ma_email_to']; 															
 			
-			//$headers = 'MIME-Version: 1.0' . "\r\n";
-			//$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-			//$headers .= 'From: ' . $email_from;	
+            $subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $modSettings['notify_ma_member_name'] . " " . $txt['notify_ma_logged_in']; 
 			
-			//$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $member_name . " " . $txt['notify_ma_logged_in']; 
-            $subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $user_settings['real_name'] . " " . $txt['notify_ma_logged_in']; 
+			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $modSettings['notify_ma_member_name'] . "</strong> " . $txt['notify_ma_logged_in'];			
 			
-			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $member_name . "</strong> " . $txt['notify_ma_logged_in'];
-			
-			//$send = mail($email_to, $subject, $body, $headers);		
             require_once($sourcedir . '/Subs-Post.php');
             sendmail ($email_to, $subject, $body, $email_from, $send_html = true, $priority = 4);
 		}	
@@ -79,25 +73,15 @@ final class NotifyOnMembersActions
 		
 		loadLanguage('NotifyOnMembersActions');        
 		
-		//$login_alert_array = explode(',', $modSettings['notify_ma_id_member']); 		
-		//if(in_array($posterOptions['id'], $login_alert_array)) {
-		//if($posterOptions['name'] == $modSettings['notify_ma_member_name']) {
-        //if($context['user']['name'] == $modSettings['notify_ma_member_name']) {
-        if($user_settings['real_name'] == $modSettings['notify_ma_member_name']) {
+		if($user_settings['real_name'] == $modSettings['notify_ma_member_name']) {
 			$email_from = $modSettings['notify_ma_email_from']; 			
-			$email_to = $modSettings['notify_ma_email_to']; 						
+			$email_to = $modSettings['notify_ma_email_to']; 									
 			
-			//$headers = 'MIME-Version: 1.0' . "\r\n";
-			//$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-			//$headers .= 'From: ' . $email_from;			
-			
-			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $posterOptions['name'] . " " . $txt['notify_ma_written_new_post']; 
-			//$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $posterOptions['name'] . "</strong> " . $txt['notify_ma_written_new_post'] . "<br>"
-            $body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $user_settings['real_name'] . "</strong> " . $txt['notify_ma_written_new_post'] . "<br>"
+			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $modSettings['notify_ma_member_name'] . " " . $txt['notify_ma_written_new_post']; 			
+            $body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $modSettings['notify_ma_member_name'] . "</strong> " . $txt['notify_ma_written_new_post'] . "<br>"
 			. "<a href='" . $scripturl . "?msg=" . $msgOptions['id'] . "#" . $msgOptions['id'] . "'><strong>" . $msgOptions['subject'] . "</strong></a><br>" 
-			. $msgOptions['body'] . "<br>"; 				
+			. $msgOptions['body'] . "<br>"; 							
 			
-			//$send = mail($email_to, $subject, $body, $headers);		
             require_once($sourcedir . '/Subs-Post.php');
             sendmail ($email_to, $subject, $body, $email_from, $send_html = true, $priority = 4);
 		}	
