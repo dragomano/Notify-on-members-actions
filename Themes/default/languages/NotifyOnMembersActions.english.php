@@ -25,5 +25,3 @@ $txt['notify_ma_forum_alert'] = 'FORUM ALERT';
 $txt['notify_ma_user'] = 'user';
 $txt['notify_ma_written_new_post'] = 'has written a new post!';
 $txt['notify_ma_logged_in'] = 'has logged in!';
-$txt['notify_ma_subject'] = 'subject';
-$txt['notify_ma_body'] = 'body';

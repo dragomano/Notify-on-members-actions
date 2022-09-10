@@ -70,12 +70,12 @@ final class NotifyOnMembersActions
 	 */
 	public function afterCreatePost($msgOptions, $topicOptions, $posterOptions, $message_columns, $message_parameters)	
 	{
-		global $context, $modSettings, $txt, $sourcedir;									        
+		global $context, $modSettings, $txt, $sourcedir, $scripturl;									        
 		
 		if(!$modSettings['notify_ma_on_new_post'])
 			return;			        
 		
-		loadLanguage('NotifyOnMembersActions');
+		loadLanguage('NotifyOnMembersActions');        
 		
 		//$login_alert_array = explode(',', $modSettings['notify_ma_id_member']); 		
 		//if(in_array($posterOptions['id'], $login_alert_array)) {
@@ -89,8 +89,8 @@ final class NotifyOnMembersActions
 			
 			$subject = $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . ": " . $txt['notify_ma_user'] . " " . $posterOptions['name'] . " " . $txt['notify_ma_written_new_post']; 
 			$body = "<strong>" . $txt['notify_ma_forum_alert'] . " " . $context['forum_name_html_safe'] . "</strong>: " . $txt['notify_ma_user'] . " <strong>" . $posterOptions['name'] . "</strong> " . $txt['notify_ma_written_new_post'] . "<br>"
-			."<strong>" . $txt['notify_ma_subject'] . "</strong>: " . $msgOptions['subject'] . "<br>" 
-			."<strong>" . $txt['notify_ma_body'] . "</strong>:<br> " . $msgOptions['body'] . "<br>"; 			
+			. "<a href='" . $scripturl . "?msg=" . $msgOptions['id'] . "#" . $msgOptions['id'] . "'><strong>" . $msgOptions['subject'] . "</strong></a><br>" 
+			. $msgOptions['body'] . "<br>"; 				
 			
 			//$send = mail($email_to, $subject, $body, $headers);		
             require_once($sourcedir . '/Subs-Post.php');
