@@ -48,7 +48,7 @@ final class NotifyOnMembersActions
 		$mID = loadMemberData($member_name, $is_name = true);		
 		loadMemberContext($mID[0]);
 		
-        if($memberContext[1]['name'] == $modSettings['notify_ma_member_name']) {
+        if($memberContext[$mID[0]]['name'] == $modSettings['notify_ma_member_name']) {
 			$email_from = $modSettings['notify_ma_email_from']; 			
 			$email_to = $modSettings['notify_ma_email_to']; 															
 			
